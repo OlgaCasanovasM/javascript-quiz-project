@@ -73,6 +73,23 @@ document.addEventListener("DOMContentLoaded", () => {
   /************  TIMER  ************/
 
   let timer;
+  timer = setInterval(function () {
+    if (quiz.timeRemaining > 0) {
+      quiz.timeRemaining--;
+      console.log(quiz.timeRemaining);
+
+      // Convert the time remaining in seconds to minutes and seconds, and pad the numbers with zeros if needed
+      let minutes = Math.floor(quiz.timeRemaining / 60)
+        .toString()
+        .padStart(2, "0");
+      let seconds = (quiz.timeRemaining % 60).toString().padStart(2, "0");
+
+      // Display the time remaining in the time remaining contain
+      timeRemainingContainer.innerText = `${minutes}:${seconds}`;
+    } else {
+      showResults();
+    }
+  }, 1000);
 
   /************  EVENT LISTENERS  ************/
 
@@ -180,9 +197,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function showResults() {
     // YOUR CODE HERE:
-    //
+
     // 1. Hide the quiz view (div#quizView)
     quizView.style.display = "none";
+
+    clearInterval(timer);
 
     // 2. Show the end view (div#endView)
     endView.style.display = "flex";
@@ -192,17 +211,44 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function restartQuiz() {
+    quizView.style.display = "block";
     endView.style.display = "none";
 
-    quizView.style.display = "block";
-
-    const quiz = new Quiz(questions, quizDuration, quizDuration);
     // Shuffle the quiz questions
     quiz.currentQuestionIndex = 0;
     quiz.correctAnswers = 0;
-
     quiz.shuffleQuestions();
 
-    // showQuestion();
+    quiz.timeRemaining = quizDuration;
+
+    const minutes = Math.floor(quiz.timeRemaining / 60)
+      .toString()
+      .padStart(2, "0");
+    const seconds = (quiz.timeRemaining % 60).toString().padStart(2, "0");
+
+    // Display the time remaining in the time remaining container
+    const timeRemainingContainer = document.getElementById("timeRemaining");
+    timeRemainingContainer.innerText = `${minutes}:${seconds}`;
+
+    showQuestion();
+
+    timer = setInterval(function () {
+      if (quiz.timeRemaining > 0) {
+        quiz.timeRemaining--;
+        console.log(quiz.timeRemaining);
+
+        // Convert the time remaining in seconds to minutes and seconds, and pad the numbers with zeros if needed
+        let minutes = Math.floor(quiz.timeRemaining / 60)
+          .toString()
+          .padStart(2, "0");
+        let seconds = (quiz.timeRemaining % 60).toString().padStart(2, "0");
+
+        // Display the time remaining in the time remaining contain
+        timeRemainingContainer.innerText = `${minutes}:${seconds}`;
+      } else {
+        clearInterval(timer);
+        showResults();
+      }
+    }, 1000);
   }
 });
