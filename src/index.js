@@ -76,7 +76,6 @@ document.addEventListener("DOMContentLoaded", () => {
   timer = setInterval(function () {
     if (quiz.timeRemaining > 0) {
       quiz.timeRemaining--;
-      console.log(quiz.timeRemaining);
 
       // Convert the time remaining in seconds to minutes and seconds, and pad the numbers with zeros if needed
       let minutes = Math.floor(quiz.timeRemaining / 60)
@@ -235,7 +234,6 @@ document.addEventListener("DOMContentLoaded", () => {
     timer = setInterval(function () {
       if (quiz.timeRemaining > 0) {
         quiz.timeRemaining--;
-        console.log(quiz.timeRemaining);
 
         // Convert the time remaining in seconds to minutes and seconds, and pad the numbers with zeros if needed
         let minutes = Math.floor(quiz.timeRemaining / 60)
