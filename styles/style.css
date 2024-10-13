@@ -14,6 +14,7 @@ body {
 }
 
 header {
+  width: 300px;
   padding: 0 20px;
 }
 
@@ -25,7 +26,9 @@ header {
   background: #fff;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
-
+#quizView {
+  position: relative;
+}
 #quizView,
 #endView {
   overflow-y: auto;
@@ -173,4 +176,7 @@ input[type="radio"] {
   margin: 0 auto;
   margin-top: -35px;
   margin-bottom: 12px;
+  position: absolute;
+  left: 87%;
+  bottom: 92%;
 }
